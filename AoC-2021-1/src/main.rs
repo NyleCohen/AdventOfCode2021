@@ -135,35 +135,33 @@ fn main() {
         10415,
     ];
 
-    // let first_num = v[0];
-    // println!("{} (N/A - no previous measurement)", first_num);
+    // println!("{} (N/A - no previous measurement)", v[0]);
 
-    // let mut i = 1;
-    // let mut inc_count = 0;
-    // let mut dec_count = 0;
-    // while i < v.len() {
-    //     let index = i - 1;
-    //     if v[i] < v[index] {
-    //         // println!("{} (Decreased)", v[i]);
-    //         dec_count += 1;
-    //     } else {
-    //         // println!("{} (Increased)", v[i]);
-    //         inc_count += 1;
-    //     }
-    //     i += 1;
-    // }
-    // println!("{} Decreased\n{} Increased", dec_count, inc_count);
-    
     let mut i = 1;
-    let mut window = Vec::new();
+    let mut inc_count = 0;
+    let mut dec_count = 0;
 
     while i < v.len() {
-        let a = vec![v[i] + v[i + 1] + v[i + 2]];
-        
-        window.append(&mut a);
-
-        println!("{:?}", window[i]);
-
+        let j= i - 1;
+        if v[i] < v[j] {
+            // println!("{} (Decreased)", v[i]);
+            dec_count += 1;
+        } else {
+            // println!("{} (Increased)", v[i]);
+            inc_count += 1;
+        }
         i += 1;
     }
+
+    println!("{} Decreased\n{} Increased", dec_count, inc_count);
+
+    println!("{:?}", part_2(&v));
+}
+
+fn part_2(input: &[u32]) -> usize {
+    input
+        .iter()
+        .zip(input.iter().skip(3))
+        .filter(|(a, b)| b > a)
+        .count()
 }
